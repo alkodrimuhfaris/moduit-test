@@ -1,9 +1,6 @@
 import axios from 'axios';
 
-export default (token = '') =>
+export default () =>
   axios.create({
-    baseURL: process.env.REACT_APP_URL_BACKEND,
-    headers: {
-      Authorization: token ? `Bearer ${token}` : undefined,
-    },
+    baseURL: 'https://screening.moduit.id/',
   });

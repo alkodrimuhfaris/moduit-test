@@ -1,3 +1,7 @@
+import question1 from './question1';
+import question2 from './question2';
+
 export default {
-  // export all of actions here
+  question1,
+  question2,
 };
