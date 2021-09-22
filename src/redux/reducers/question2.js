@@ -142,7 +142,8 @@ export default (state = initialState, action) => {
 
       const data = rawData.length ? searchFunction(rawData, search) : [];
       const totalData = data.length;
-      const maxPage = Math.ceil(totalData / dataShowed);
+      const maxPage =
+        dataShowed === 'all' ? 1 : Math.ceil(totalData / dataShowed);
 
       const endData =
         dataShowed === 'all'
