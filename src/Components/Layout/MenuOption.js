@@ -12,9 +12,7 @@ export default function MenuOption({question, val, idx}) {
       <div className="hover-stylized" />
       <Link to={`/${route}`} className="menu-option">
         <SvgIcon src={`/assets/icon/${icon}.svg`} className={['icon']} />
-        <a className="text-menu" href={`#${route}`}>
-          {title}
-        </a>
+        <span className="text-menu">{title}</span>
       </Link>
     </li>
   );

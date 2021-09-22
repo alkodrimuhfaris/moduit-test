@@ -1,4 +1,5 @@
 import searchFunction from '../../Helpers/searchFunction';
+import sortArray from '../../Helpers/sortArray';
 
 const initialState = {
   loading: false,
@@ -42,19 +43,16 @@ export default (state = initialState, action) => {
     case 'QUESTION2_FULFILLED': {
       const {data: dataRaw} = action.payload;
 
-      const data =
-        state.order === 'asc'
-          ? dataRaw.sort((a, b) => a.title > b.title)
-          : dataRaw.sort((a, b) => a.title < b.title);
+      const data = sortArray(dataRaw, state.order);
       const totalData = data.length;
       const {offset, dataShowed} = state;
 
-      const searchData = searchFunction(data, '');
+      const searchData = searchFunction(data, state.search);
 
       const maxPage = Math.ceil(totalData / dataShowed);
 
       const endData =
-        offset + dataShowed > totalData ? offset + dataShowed : totalData;
+        offset + dataShowed < totalData ? offset + dataShowed : totalData;
       const showData = data.slice(offset, endData);
 
       return {
@@ -72,12 +70,9 @@ export default (state = initialState, action) => {
     }
     case 'QUESTION2_TOGGLE_ORDER': {
       const order = state.order === 'asc' ? 'dsc' : 'asc';
-      const {offset, dataShowed, totalData, data: oldData, search} = state;
+      const {offset, dataShowed, totalData, rawData: oldData, search} = state;
 
-      const rawData =
-        order === 'asc'
-          ? oldData.sort((a, b) => a.title > b.title)
-          : oldData.sort((a, b) => a.title < b.title);
+      const rawData = sortArray(oldData, order);
 
       const data = searchFunction(rawData, search);
 
@@ -86,6 +81,7 @@ export default (state = initialState, action) => {
       const showData = data.slice(offset, endData);
 
       return {
+        ...state,
         order,
         rawData,
         data,
@@ -104,6 +100,7 @@ export default (state = initialState, action) => {
       const showData = data.slice(offset, endData);
 
       return {
+        ...state,
         page,
         offset,
         showData,
@@ -120,9 +117,12 @@ export default (state = initialState, action) => {
       const endData =
         offset + dataShowed < totalData ? offset + dataShowed : totalData;
       const showData =
-        dataShowed === 'all' ? data.map((x) => x) : data.slice(offset, endData);
+        dataShowed === 'all'
+          ? data.map((x) => ({...x}))
+          : data.slice(offset, endData);
 
       return {
+        ...state,
         page,
         offset,
         dataShowed,
@@ -132,16 +132,13 @@ export default (state = initialState, action) => {
     }
     case 'QUESTION2_SEARCH': {
       const search = action.payload;
-      const {order, dataShowed, data: oldData} = state;
+      const {order, dataShowed, rawData: oldData} = state;
       const page = 1;
       const offset = page - 1;
 
-      const rawData =
-        order === 'asc'
-          ? oldData.sort((a, b) => a.title > b.title)
-          : oldData.sort((a, b) => a.title < b.title);
+      const rawData = sortArray(oldData, order);
 
-      const data = searchFunction(rawData, search);
+      const data = rawData.length ? searchFunction(rawData, search) : [];
       const totalData = data.length;
       const maxPage = Math.ceil(totalData / dataShowed);
 
@@ -154,6 +151,8 @@ export default (state = initialState, action) => {
       const showData = data.slice(offset, endData);
 
       return {
+        ...state,
+        search,
         page,
         offset,
         order,

@@ -1,3 +1,5 @@
+import sortArray from '../../Helpers/sortArray';
+
 const initialState = {
   loading: false,
   success: false,
@@ -12,6 +14,7 @@ const initialState = {
   dataShowed: 5,
   maxPage: 1,
   totalData: 0,
+  search: '',
 };
 
 export default (state = initialState, action) => {
@@ -38,17 +41,14 @@ export default (state = initialState, action) => {
     case 'QUESTION1_FULFILLED': {
       const {data: dataRaw} = action.payload;
 
-      const data =
-        state.order === 'asc'
-          ? dataRaw.sort((a, b) => a.title > b.title)
-          : dataRaw.sort((a, b) => a.title < b.title);
-      const totalData = data.length;
+      const data = sortArray(dataRaw, state.order);
+      const totalData = dataRaw.length;
       const {offset, dataShowed} = state;
 
       const maxPage = Math.ceil(totalData / dataShowed);
 
       const endData =
-        offset + dataShowed > totalData ? offset + dataShowed : totalData;
+        offset + dataShowed < totalData ? offset + dataShowed : totalData;
       const showData = data.slice(offset, endData);
 
       return {
@@ -66,16 +66,14 @@ export default (state = initialState, action) => {
     case 'QUESTION1_TOGGLE_ORDER': {
       const order = state.order === 'asc' ? 'dsc' : 'asc';
       const {offset, dataShowed, totalData, data: oldData} = state;
-      const data =
-        order === 'asc'
-          ? oldData.sort((a, b) => a.title > b.title)
-          : oldData.sort((a, b) => a.title < b.title);
+      const data = sortArray(oldData, order);
 
       const endData =
         offset + dataShowed < totalData ? offset + dataShowed : totalData;
       const showData = data.slice(offset, endData);
 
       return {
+        ...state,
         order,
         data,
         showData,
@@ -93,6 +91,7 @@ export default (state = initialState, action) => {
       const showData = data.slice(offset, endData);
 
       return {
+        ...state,
         page,
         offset,
         showData,
@@ -112,6 +111,7 @@ export default (state = initialState, action) => {
         dataShowed === 'all' ? data.map((x) => x) : data.slice(offset, endData);
 
       return {
+        ...state,
         page,
         offset,
         dataShowed,

@@ -16,7 +16,7 @@ export default function Menu() {
       <SvgIcon src="/assets/logo/logo.svg" className={['logo-icon']} />
       <ul className="menu-container">
         {menu.map((val, idx) => (
-          <MenuOption question={question} val={val} idx={idx} />
+          <MenuOption key={idx} question={question} val={val} idx={idx} />
         ))}
       </ul>
     </div>
