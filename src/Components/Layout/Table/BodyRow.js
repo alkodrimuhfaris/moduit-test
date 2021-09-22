@@ -15,10 +15,10 @@ export default function BodyRow({question, val, idx}) {
       <div className="col-2">
         <p className="center">{setCategory(category * 1)}</p>
       </div>
-      <div className="col-3">
+      <div className="col-2 col-md-3">
         <p className="center">{description}</p>
       </div>
-      <div className="col-2">
+      <div className="col-3 col-md-2">
         {!tags ? (
           <p className="m-0 text-center">no tags</p>
         ) : (

@@ -20,10 +20,10 @@ export default function HeadRow({changeOrder = () => {}, order = 'asc'}) {
       <div className="col-2">
         <p className="center">Category</p>
       </div>
-      <div className="col-3">
+      <div className="col-2 col-md-3">
         <p className="center">Description</p>
       </div>
-      <div className="col-2">
+      <div className="col-3 col-md-2">
         <p className="center">Tags</p>
       </div>
     </div>
