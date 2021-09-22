@@ -1,5 +1,6 @@
 import React from 'react';
 import Content from 'dangerously-set-html-content';
+import setCategory from '../../../Helpers/setCategory';
 
 export default function BodyRow({question, val, idx}) {
   const {title, id, category, description, tags} = val;
@@ -12,7 +13,7 @@ export default function BodyRow({question, val, idx}) {
         <p className="center">N{id}</p>
       </div>
       <div className="col-2">
-        <p className="center">{category}</p>
+        <p className="center">{setCategory(category * 1)}</p>
       </div>
       <div className="col-3">
         <p className="center">{description}</p>
