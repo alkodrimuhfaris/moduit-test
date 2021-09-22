@@ -49,7 +49,8 @@ export default (state = initialState, action) => {
 
       const searchData = searchFunction(data, state.search);
 
-      const maxPage = Math.ceil(totalData / dataShowed);
+      const maxPage =
+        dataShowed === 'all' ? 1 : Math.ceil(totalData / dataShowed);
 
       const endData =
         offset + dataShowed < totalData ? offset + dataShowed : totalData;

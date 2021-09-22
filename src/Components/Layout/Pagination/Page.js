@@ -7,7 +7,7 @@ import TriangleIcon from '../TriangleIcon';
 export default function Page({question}) {
   const history = useHistory();
   const [pages, setPages] = React.useState([1, 2, 3, 4, 5]);
-  const {page: currentPage, maxPage} = useSelector((state) =>
+  const {page: currentPage, search, maxPage} = useSelector((state) =>
     question === 'one' ? state.question1 : state.question2,
   );
   const [prevElipsis, setPrevElipsis] = React.useState(false);
@@ -31,9 +31,15 @@ export default function Page({question}) {
           type="button"
           className="pagination-item"
           onClick={() =>
-            history.push({
-              search: `?page=${currentPage - 1}`,
-            })
+            history.push(
+              search && question === 'two'
+                ? {
+                    search: `?page=${currentPage - 1}&search=${search}`,
+                  }
+                : {
+                    search: `?page=${currentPage - 1}`,
+                  },
+            )
           }
         >
           <span>
@@ -57,9 +63,15 @@ export default function Page({question}) {
             type="button"
             className="pagination-item"
             onClick={() =>
-              history.push({
-                search: `?page=${val}`,
-              })
+              history.push(
+                search && question === 'two'
+                  ? {
+                      search: `?page=${val}&search=${search}`,
+                    }
+                  : {
+                      search: `?page=${val}`,
+                    },
+              )
             }
           >
             <span>{val}</span>
@@ -81,9 +93,15 @@ export default function Page({question}) {
           type="button"
           className="pagination-item"
           onClick={() =>
-            history.push({
-              search: `?page=${currentPage + 1}`,
-            })
+            history.push(
+              search && question === 'two'
+                ? {
+                    search: `?page=${currentPage + 1}&search=${search}`,
+                  }
+                : {
+                    search: `?page=${currentPage + 1}`,
+                  },
+            )
           }
         >
           <span>

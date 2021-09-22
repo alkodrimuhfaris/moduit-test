@@ -103,7 +103,8 @@ export default (state = initialState, action) => {
       const page = 1;
       const offset = 0;
 
-      const maxPage = Math.ceil(totalData / dataShowed);
+      const maxPage =
+        dataShowed === 'all' ? 1 : Math.ceil(totalData / dataShowed);
 
       const endData =
         offset + dataShowed < totalData ? offset + dataShowed : totalData;
