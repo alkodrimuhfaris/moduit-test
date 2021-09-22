@@ -430,7 +430,9 @@ body:not(.modal-open) {
   outline: none;
   border: none;
   background-color: transparent;
-  & .child-1, .child-2, .child-3 {
+  & .child-1,
+  .child-2,
+  .child-3 {
     position: absolute;
     left: 0px;
     // transform: translateX(50%);
@@ -462,7 +464,6 @@ body:not(.modal-open) {
     transition: 0.5s ease;
     &.open {
       transform: rotate(-45deg) translate(6.25px, -6.25px);
-
     }
   }
 }
@@ -545,10 +546,10 @@ body:not(.modal-open) {
     & .content {
       height: calc(100% - 5rem) !important;
       width: 100% !important;
-      padding-left: 0.25em !important;
-      padding-right: 0.25em !important;
+      padding-left: 0.5em !important;
+      padding-right: 0.5em !important;
       .content-table-wrapper {
-        padding-left: 0.25em !important;
+        padding-left: 1em !important;
         padding-right: 0.25em !important;
       }
     }
@@ -578,8 +579,8 @@ body:not(.modal-open) {
       padding-left: 1em !important;
       padding-right: 1em !important;
       .content-table-wrapper {
-        padding-left: 0.5em !important;
-        padding-right: 0.5em !important;
+        padding-left: 1em !important;
+        padding-right: 1em !important;
       }
     }
   }
