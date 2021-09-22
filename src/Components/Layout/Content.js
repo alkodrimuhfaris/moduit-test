@@ -36,20 +36,6 @@ export default function Content() {
     }
   }, [querySearch]);
 
-  const handleChangeSearch = (e) => {
-    if (question === 'two') {
-      history.push(
-        question === 'two'
-          ? {
-              search: `?page=1&search=${e.target.value}`,
-            }
-          : {
-              search: `?search=${e.target.value}`,
-            },
-      );
-    }
-  };
-
   React.useEffect(() => {
     if (success) {
       if (question === 'two') {
@@ -73,7 +59,7 @@ export default function Content() {
                   search: `?page=${1}&search=${savedSearch}`,
                 }
               : {
-                  search: `?page${1}`,
+                  search: `?page=${1}`,
                 },
           );
         }
@@ -86,6 +72,20 @@ export default function Content() {
       }
     }
   }, [queryPage, getDataSuccess]);
+
+  const handleChangeSearch = (e) => {
+    if (question === 'two') {
+      history.push(
+        question === 'two'
+          ? {
+              search: `?page=1&search=${e.target.value}`,
+            }
+          : {
+              search: `?search=${e.target.value}`,
+            },
+      );
+    }
+  };
 
   return (
     <div className="content-wrapper">
