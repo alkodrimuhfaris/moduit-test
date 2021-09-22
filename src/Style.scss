@@ -69,9 +69,9 @@ body:not(.modal-open) {
       & .menu-option {
         position: relative;
         padding-left: 2rem;
-        height: calc(100% + 0.5rem);
-        padding-top: 0.25em;
-        padding-bottom: 0.25em;
+        height: calc(100%);
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
         z-index: 10;
         display: flex;
         align-items: center;
