@@ -7,14 +7,7 @@ import TableContainer from './Table/TableContainer';
 export default function Table() {
   const dispatch = useDispatch();
   const {question} = useParams();
-  const {
-    showData,
-    // page,
-    // dataShowed,
-    // maxPage,
-    // search,
-    order,
-  } = useSelector((state) =>
+  const {showData, success, loading, error, order} = useSelector((state) =>
     question === 'one' ? state.question1 : state.question2,
   );
 
@@ -29,6 +22,9 @@ export default function Table() {
   return (
     <div className="table-wrapper">
       <TableContainer
+        success={success}
+        loading={loading}
+        error={error}
         changeOrder={changeOrder}
         order={order}
         showData={showData}
